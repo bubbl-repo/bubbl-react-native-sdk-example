@@ -35,9 +35,14 @@ npm install
 cd ios && bundle install && bundle exec pod install && cd ..
 ```
 
+If your `tech.bubbl:bubbl-sdk:2.1.0` artifact is not publicly resolvable, set:
+- `BUBBL_MAVEN_USER`
+- `BUBBL_MAVEN_TOKEN`
+
+or provide a local Maven path via `BUBBL_ANDROID_SDK_LOCAL_MAVEN`.
+
 ## Test
 
 ```bash
 npm test -- --watch=false
 ```
-
