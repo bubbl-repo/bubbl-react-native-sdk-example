@@ -1,0 +1,32 @@
+pluginManagement { includeBuild("../node_modules/@react-native/gradle-plugin") }
+plugins { id("com.facebook.react.settings") }
+extensions.configure(com.facebook.react.ReactSettingsExtension){ ex -> ex.autolinkLibrariesFromCommand() }
+
+def localBubblSdkMavenPath = providers.gradleProperty("BUBBL_ANDROID_SDK_LOCAL_MAVEN").orNull ?: System.getenv("BUBBL_ANDROID_SDK_LOCAL_MAVEN") ?: "../../bubbl-current/sdk/bubbl-android-sdk-standalone/sdk/build/localMaven"
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+    repositories {
+        mavenLocal()
+        google()
+        mavenCentral()
+        def localBubblSdkMavenDir = file(localBubblSdkMavenPath)
+        if (localBubblSdkMavenDir.exists()) {
+            maven { url = uri(localBubblSdkMavenDir) }
+        }
+        def bubbMavenUser = providers.gradleProperty("BUBBL_MAVEN_USER").orNull ?: System.getenv("BUBBL_MAVEN_USER")
+        def bubbMavenToken = providers.gradleProperty("BUBBL_MAVEN_TOKEN").orNull ?: System.getenv("BUBBL_MAVEN_TOKEN")
+        if (bubbMavenUser != null && bubbMavenUser.trim() && bubbMavenToken != null && bubbMavenToken.trim()) {
+            maven {
+                url = uri("https://maven.pkg.github.com/bubbl-repo/bubbl-android-sdk")
+                credentials {
+                    username = bubbMavenUser
+                    password = bubbMavenToken
+                }
+            }
+        }
+    }
+}
+rootProject.name = "BubblBridgeSandbox"
+include ':app'
+includeBuild('../node_modules/@react-native/gradle-plugin')
