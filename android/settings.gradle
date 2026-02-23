@@ -14,17 +14,7 @@ dependencyResolutionManagement {
         if (localBubblSdkMavenDir.exists()) {
             maven { url = uri(localBubblSdkMavenDir) }
         }
-        def bubbMavenUser = providers.gradleProperty("BUBBL_MAVEN_USER").orNull ?: System.getenv("BUBBL_MAVEN_USER")
-        def bubbMavenToken = providers.gradleProperty("BUBBL_MAVEN_TOKEN").orNull ?: System.getenv("BUBBL_MAVEN_TOKEN")
-        if (bubbMavenUser != null && bubbMavenUser.trim() && bubbMavenToken != null && bubbMavenToken.trim()) {
-            maven {
-                url = uri("https://maven.pkg.github.com/bubbl-repo/bubbl-android-sdk")
-                credentials {
-                    username = bubbMavenUser
-                    password = bubbMavenToken
-                }
-            }
-        }
+        maven { url = uri("https://maven.bubbl.tech/repository/releases/") }
     }
 }
 rootProject.name = "BubblBridgeSandbox"

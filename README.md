@@ -35,11 +35,9 @@ npm install
 cd ios && bundle install && bundle exec pod install && cd ..
 ```
 
-If your `tech.bubbl:bubbl-sdk:2.1.0` artifact is not publicly resolvable, set:
-- `BUBBL_MAVEN_USER`
-- `BUBBL_MAVEN_TOKEN`
+`tech.bubbl:bubbl-sdk:2.1.0` resolves from Bubbl Maven (`https://maven.bubbl.tech/repository/releases/`) with no username/password required.
 
-or provide a local Maven path via `BUBBL_ANDROID_SDK_LOCAL_MAVEN`.
+You can still override with a local Maven path via `BUBBL_ANDROID_SDK_LOCAL_MAVEN`.
 
 ## Test
 
